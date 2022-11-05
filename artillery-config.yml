@@ -1,0 +1,21 @@
+config:
+  environments:
+    baseline:
+      target: "https://3v5sfjxbhhk2jzk4khsuslw56q0qwghl.lambda-url.us-west-2.on.aws"
+    crossRegionLambdaInvoke:
+      target: "https://6j4jcoo4h7op4t5ndnvblh2hrq0tjjcg.lambda-url.us-east-1.on.aws"
+    crossRegionDDBGetItem:
+      target: "https://kkb6d3y2wvvwfahb7xc5syow6i0rdhnv.lambda-url.us-west-2.on.aws"
+    crossRegionLambdaInvokeWithCloudFront:
+      target: "https://d38xwhn2pjj0b4.cloudfront.net"
+  target: "bleh"
+  phases:
+    - duration: 300
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up
+scenarios:
+  - name: 'test'
+    flow:
+      - get: 
+          url: / 

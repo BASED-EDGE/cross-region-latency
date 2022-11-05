@@ -1,0 +1,23 @@
+{
+  "name": "cross-region-latency",
+  "version": "1.0.0",
+  "description": "## goal compare aws cross region latency",
+  "main": "lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BASED-EDGE/cross-region-latency.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BASED-EDGE/cross-region-latency/issues"
+  },
+  "homepage": "https://github.com/BASED-EDGE/cross-region-latency#readme",
+  "dependencies": {
+    "artillery": "^2.0.0-25",
+    "aws-sdk": "^2.1248.0"
+  }
+}

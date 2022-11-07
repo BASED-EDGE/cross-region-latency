@@ -29,6 +29,8 @@ will also spin up us-west-2 lambda + ddb to cover base latency (to see how much 
 terraform (for something to learn) + running Artillery load test against lambda url endpoint (or cloudfront)
 
 # result
+Invoking the lambda closer to the ddb directly is the most performant (given the above testing conditions)
+
 <todo: blog link>
 
 

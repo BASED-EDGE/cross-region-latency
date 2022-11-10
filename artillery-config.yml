@@ -15,7 +15,19 @@ config:
       rampTo: 5
       name: Warm up
 scenarios:
-  - name: 'test'
+  - name: 'POST_1kb'
     flow:
-      - get: 
-          url: / 
+      - post: 
+          url: /?id=1kb
+  # - name: 'GET_1kb'
+  #   flow:
+  #     - get: 
+  #         url: /?id=1kb
+  # - name: 'POST_350kb'
+  #   flow:
+  #     - post: 
+  #         url: /?id=350kb
+  # - name: 'GET_1kb'
+  #   flow:
+  #     - get: 
+  #         url: /?id=350kb

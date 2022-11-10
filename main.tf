@@ -10,8 +10,8 @@ terraform {
 }
 
 provider "aws" {
-#   region = "us-west-2"
-  region = "us-east-1"
+  #region = "us-west-2"
+   region = "us-east-1"
 }
 
 locals {
@@ -58,7 +58,7 @@ resource "aws_iam_policy" "lambda_perm" {
       "Effect": "Allow"
     },
     {
-        "Action":["dynamodb:GetItem"],
+        "Action":["dynamodb:GetItem","dynamodb:PutItem"],
         "Resource":"arn:aws:dynamodb:*:*:table/CrossRegionLatency",
         "Effect":"Allow"
     }
@@ -98,6 +98,7 @@ resource "aws_lambda_function_url" "test_latest" {
 
 #cross region lambda
 resource "aws_lambda_function" "lambda_cross" {
+  count = local.region == "us-west-2" ? 1:0 #only create in us-west-2
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
   filename      = "lambda.zip"
@@ -117,7 +118,8 @@ resource "aws_lambda_function" "lambda_cross" {
 }
 
 resource "aws_lambda_function_url" "cross_region_url" {
-  function_name      = aws_lambda_function.lambda_cross.function_name
+  count = length(aws_lambda_function.lambda_cross) == 1 ?  1: 0
+  function_name      = aws_lambda_function.lambda_cross[0].function_name
   authorization_type = "NONE"
 }
 
@@ -136,6 +138,8 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
 
 
 resource "aws_cloudfront_distribution" "dist" {
+  count = local.region == "us-east-1" ? 1:0 #only create in us-east-1
+
   origin {
     domain_name              =  "6j4jcoo4h7op4t5ndnvblh2hrq0tjjcg.lambda-url.us-east-1.on.aws" #dont want to try to parse aws_lambda_function_url.test_latest.function_url
     custom_origin_config  {
